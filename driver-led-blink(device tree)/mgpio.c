@@ -14,7 +14,7 @@ struct gpio_desc *gpio_27;
 
 static  const struct of_device_id gpiod_dt_ids[] = {
     { .compatible = "gpio-descriptor-based", },
-    { /* sentinel */ }
+    {}
 };
 
 static int mgpio_driver_probe(struct platform_device *pdev)
@@ -28,7 +28,7 @@ static int mgpio_driver_probe(struct platform_device *pdev)
 }
 
 static int mgpio_driver_remove(struct platform_device *pdev){
-    gpiod_set_Value(gpio_27, LOW);
+    gpiod_set_value(gpio_27, LOW);
     gpiod_put(gpio_27);
     
     pr_info ("%s - %d\n", __func__, __LINE__);
@@ -39,9 +39,9 @@ static struct platform_driver mgpio = {
     .probe = mgpio_driver_probe,
     .remove = mgpio_driver_remove,
     .driver = {
-        .name = "descriptor-based",
+        .name = "gpio-descriptor-based",
         .of_match_table = of_match_ptr(gpiod_dt_ids),
-        .onwer = THIS_MODULE,
+        .owner = THIS_MODULE,
     },
 };
 
